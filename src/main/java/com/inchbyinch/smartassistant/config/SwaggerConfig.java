@@ -7,6 +7,7 @@ import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.media.StringSchema;
 import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
+
 @Configuration
 
 public class SwaggerConfig {
@@ -50,9 +51,9 @@ public class SwaggerConfig {
 
         return new OpenAPI()
                 .info(new Info()
-                        .title("OpenAI Service API")
+                        .title("Smart Assistant Application APIs")
                         .version("1.0")
-                        .description("API documentation"))
+                        .description("API documentation for Smart Assistant"))
                 .components(new Components()
                         .addParameters("Authorization", authorization)
                         .addParameters("Client-Name", clientName)
