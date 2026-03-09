@@ -1,41 +1,46 @@
 package com.inchbyinch.smartassistant.controller;
 
 import com.inchbyinch.smartassistant.model.CountryCities;
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
-import org.springframework.ai.ollama.api.OllamaChatOptions;
+import com.inchbyinch.smartassistant.service.StructuredOutputService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
 @RequestMapping("/api")
 public class StructureOutputController {
-    private final ChatClient chatClient;
 
-    public StructureOutputController(ChatClient.Builder chatClient) {
-        this.chatClient = chatClient
-                .defaultAdvisors(List.of(new SimpleLoggerAdvisor())).build();
+    private final StructuredOutputService structuredOutputService;
+
+    public StructureOutputController(StructuredOutputService structuredOutputService) {
+        this.structuredOutputService = structuredOutputService;
     }
 
-    @RequestMapping("/structure")
-    public ResponseEntity<CountryCities> countryCities(
+    @GetMapping("/structure")
+    public ResponseEntity<CountryCities> chatBean(
             @RequestParam("message") String message) {
+        return ResponseEntity.ok()
+                .body(structuredOutputService.structuredOutput(message));
+    }
 
-        CountryCities response = chatClient
-                .prompt()
-                .user(message)
-                .options(OllamaChatOptions.builder()
-                        .temperature(0.1)
-                        .build())
-                .call()
-                .entity(CountryCities.class);
+    @GetMapping("/chat-list")
+    public ResponseEntity<List<String>> chatList(
+            @RequestParam("message") String message) {
+        return ResponseEntity.ok()
+                .body(structuredOutputService.chatListOutput(message));
+    }
 
-        return ResponseEntity.ok(response);
+    @GetMapping("/chat-map")
+    public ResponseEntity<Map<String, Object>> chatMap(
+            @RequestParam("message") String message) {
+        return ResponseEntity.ok()
+                .body(structuredOutputService.chatMapOutput(message));
     }
 
 }
