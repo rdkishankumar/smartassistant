@@ -45,6 +45,4 @@ public class PromptStuffingServiceImpl implements PromptStuffingService {
                 .call()
                 .content();
     }
-
-
 }
