@@ -1,5 +1,6 @@
 package com.inchbyinch.smartassistant.config;
 
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import org.springframework.context.annotation.Configuration;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -43,7 +44,7 @@ public class SwaggerConfig {
                 .schema(new StringSchema());
 
         Parameter userId = new Parameter()
-                .in("header")
+                .in(ParameterIn.HEADER.toString())
                 .name("User-Id")
                 .required(false)
                 .description("User Id")

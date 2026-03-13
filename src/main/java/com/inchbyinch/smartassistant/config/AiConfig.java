@@ -15,7 +15,7 @@ public class AiConfig {
 
     @Value("classpath:/promptTemplates/systemHealthPromptTemplate.st")
     private Resource systemHealthPromptTemplate;
-    @Bean
+    @Bean("systemChatClient")
     public ChatClient chatClient(ChatClient.Builder builder) {
         return builder
                 .defaultAdvisors(List.of(new SimpleLoggerAdvisor(),new TokenUsageAuditAdvisor()))

@@ -6,8 +6,7 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.converter.ListOutputConverter;
 import org.springframework.ai.converter.MapOutputConverter;
-import org.springframework.ai.ollama.api.OllamaChatOptions;
-import org.springframework.ai.ollama.management.OllamaModelManager;
+import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +25,7 @@ public class StructuredOutputServiceImpl implements StructuredOutputService {
         return (CountryCities) chatClient
                 .prompt()
                 .user(message)
-                .options(OllamaChatOptions.builder()
+                .options(OpenAiChatOptions.builder()
                         .temperature(0.1)
                         .build())
                 .call()
@@ -39,7 +38,7 @@ public class StructuredOutputServiceImpl implements StructuredOutputService {
           return chatClient
                 .prompt()
                 .user(message)
-                .options(OllamaChatOptions.builder()
+                .options(OpenAiChatOptions.builder()
                         .temperature(0.1)
                         .build())
                 .call()
@@ -50,7 +49,7 @@ public class StructuredOutputServiceImpl implements StructuredOutputService {
     public Map<String, Object> chatMapOutput(String message) {
         return chatClient.prompt()
                 .user(message)
-                .options(OllamaChatOptions.builder()
+                .options(OpenAiChatOptions.builder()
                         .temperature(0.7)
                         .build())
                 .call()

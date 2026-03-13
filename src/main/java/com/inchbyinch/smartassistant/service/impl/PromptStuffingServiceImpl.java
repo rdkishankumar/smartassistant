@@ -2,6 +2,7 @@ package com.inchbyinch.smartassistant.service.impl;
 
 import com.inchbyinch.smartassistant.service.PromptStuffingService;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class PromptStuffingServiceImpl implements PromptStuffingService {
 
     private final ChatClient chatClient;
 
-    public PromptStuffingServiceImpl(ChatClient chatClient) {
+    public PromptStuffingServiceImpl(@Qualifier("systemChatClient") ChatClient chatClient) {
         this.chatClient = chatClient;
     }
 
