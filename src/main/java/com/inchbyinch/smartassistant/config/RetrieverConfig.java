@@ -8,6 +8,7 @@ import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.client.advisor.api.Advisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.rag.advisor.RetrievalAugmentationAdvisor;
+import org.springframework.ai.rag.preretrieval.query.transformation.TranslationQueryTransformer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,6 +47,9 @@ public class RetrieverConfig {
         Advisor memoryAdvisor = MessageChatMemoryAdvisor.builder(chatMemory).build();
 
         var ragAdvisor = RetrievalAugmentationAdvisor.builder()
+                .queryTransformers(TranslationQueryTransformer.builder()
+                .chatClientBuilder(builder.clone())
+                .targetLanguage("english").build())
                 .documentRetriever(retriever)
                 .build();
 
